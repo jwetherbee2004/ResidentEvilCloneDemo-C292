@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float verticalLookLimit = 85f;
 
+    [SerializeField] Transform firePoint;
+
     private bool isGrounded;
     private float xRotation = 0f;
     private Rigidbody rb;
@@ -32,6 +34,11 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Shoot(1);
         }
     }
 
@@ -75,6 +82,19 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+    }
+
+    private void Shoot(float damage)
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(firePoint.position, firePoint.forward, out hit, 100))
+        {
+            Debug.DrawRay(firePoint.position, firePoint.forward * hit.distance, Color.red, 2f);
+            if(hit.transform.CompareTag("Zombie"))
+            {
+                hit.transform.GetComponent<Zombie>().TakeDamage(damage);
+            }
         }
     }
 }
