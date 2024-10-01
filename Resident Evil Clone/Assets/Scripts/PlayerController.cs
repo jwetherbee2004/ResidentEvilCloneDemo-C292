@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float mouseSensitivity = 60f;
     [SerializeField] Transform fpsCamera;
+    [SerializeField] Weapon weapon;
 
     [SerializeField] float verticalLookLimit = 85f;
 
     [SerializeField] Transform firePoint;
+    [SerializeField] Transform dropPoint;
 
     private bool isGrounded;
     private float xRotation = 0f;
@@ -47,8 +49,13 @@ public class PlayerController : MonoBehaviour
                 {
                     Debug.Log("Magazine");
                     magazine.OnPickup(this);
+                    weapon.CurrentMag = currentMag;
                 }
             }
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            currentMag.OnDrop(dropPoint);
         }
     }
 

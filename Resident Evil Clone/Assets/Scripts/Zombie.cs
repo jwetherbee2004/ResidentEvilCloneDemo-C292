@@ -30,6 +30,7 @@ public class Zombie : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        AudioManager.instance.PlayOneShot(AudioManager.instance.zombieDamage);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {

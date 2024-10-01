@@ -7,8 +7,7 @@ public class Pistol : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        ammoCapacity = 10;
-        currentAmmo = ammoCapacity;
+        canFire = true;
     }
 
     // Update is called once per frame
@@ -19,10 +18,15 @@ public class Pistol : Weapon
 
     protected override void Fire()
     {
-        if(currentAmmo > 0 && canFire)
+        if(currentMag == null)
+        {
+            Debug.Log("No Mag");
+            return;
+        }
+        if(currentMag.AmmoCount > 0 && canFire)
         {
             Debug.Log("Bang!");
-            currentAmmo--;
+            currentMag.AmmoCount--;
             RaycastHit hit;
             if(Physics.Raycast(firePoint.position, firePoint.forward, out hit, 100))
             {
@@ -51,6 +55,6 @@ public class Pistol : Weapon
         yield return new WaitForSeconds(reloadTime);
 
         canFire = true;
-        currentAmmo = ammoCapacity;
+        currentMag.Reload();
     }
 }

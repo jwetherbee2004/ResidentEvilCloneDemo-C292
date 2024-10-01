@@ -4,13 +4,14 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField] protected int ammoCapacity;
-    [SerializeField] protected int currentAmmo;
+    [SerializeField] protected Magazine currentMag;
     [SerializeField] protected float fireRate;
     [SerializeField] protected bool canFire = true;
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected float damage;
     [SerializeField] protected float reloadTime;
+    
+    public Magazine CurrentMag {get => currentMag; set => currentMag = value;}
 
     protected virtual void Fire() { }
     protected virtual void Reload() { }

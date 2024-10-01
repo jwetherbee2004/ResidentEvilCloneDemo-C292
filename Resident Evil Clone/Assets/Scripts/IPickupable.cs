@@ -12,5 +12,5 @@ public interface IPickupable
 
     public void OnPickup(PlayerController player);
 
-    public void OnDrop();
+    public void OnDrop(Transform position);
 }
