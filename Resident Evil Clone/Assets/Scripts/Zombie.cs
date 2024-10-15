@@ -6,7 +6,7 @@ using UnityEngine;
 public class Zombie : MonoBehaviour
 {
     [SerializeField] private float speed = 5.0f;
-    [SerializeField] private float maxHealth = 5;
+    [SerializeField] private float maxHealth = 1;
     [SerializeField] private Transform target;
     [SerializeField] private NavMeshAgent agent;
 
@@ -30,10 +30,11 @@ public class Zombie : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        AudioManager.instance.PlayOneShot(AudioManager.instance.zombieDamage);
+        // AudioManager.instance.PlayOneShot(AudioManager.instance.zombieDamage);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            UIManager.zombieDeath?.Invoke(10);
             Destroy(gameObject);
         }
     }
